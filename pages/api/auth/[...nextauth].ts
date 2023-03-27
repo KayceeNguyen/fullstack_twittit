@@ -19,13 +19,16 @@ export default NextAuth({
           throw new Error('Invalid credentials');
         }
 
+        console.log('Credentials:', credentials);
         const user = await prisma.user.findUnique({
           where: {
             email: credentials.email
           }
         });
+        console.log('User:', user);
 
         if (!user || !user?.hashedPassword) {
+          console.log('Invalid credentials:', credentials);
           throw new Error('Invalid credentials');
         }
 
